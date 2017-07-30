@@ -1,0 +1,29 @@
+parser: babel-eslint
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+    modules: true
+env:
+  browser: true
+  node: true
+  es6: true
+plugins:
+  - prettier
+extends:
+  - react-app
+  - airbnb
+  - prettier
+  - prettier/flowtype
+  - prettier/react
+rules:
+  prettier/prettier:
+    - 2
+    -
+      trailingComma: none
+      semi: false
+  jsx-a11y/href-no-hash: off
+  react/jsx-filename-extension:
+    - 1
+    - extensions:
+        - ".js"
+        - ".jsx"
