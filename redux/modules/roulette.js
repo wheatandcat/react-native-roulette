@@ -19,13 +19,21 @@ export const stop = (): Action => ({
   }
 })
 
+export const select = (name: string): Action => ({
+  type: "ROULETTE/SELECT",
+  payload: {
+    name
+  }
+})
+
 // reducer
 export type State = {
   status: ROULETTE_STATUS_INIT | ROULETTE_STATUS_START | ROULETTE_STATUS_STOP
 }
 
 const initialState: State = {
-  status: ROULETTE_STATUS_INIT
+  status: ROULETTE_STATUS_INIT,
+  name: ""
 }
 
 export const reducer = handleActions(
@@ -37,6 +45,10 @@ export const reducer = handleActions(
     "ROULETTE/STOP": (state: State, action) => ({
       ...state,
       status: action.payload.status
+    }),
+    "ROULETTE/SELECT": (state: State, action) => ({
+      ...state,
+      name: action.payload.name
     })
   },
   initialState

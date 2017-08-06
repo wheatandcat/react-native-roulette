@@ -1,17 +1,8 @@
 // @flow
-import React from "react"
-import { Provider } from "react-redux"
-import { Scene, Router } from "react-native-router-flux"
-import Roulette from "./redux/containers/Roulette"
-import createStore from "./redux/createStore"
+/* eslint-disable no-unused-vars,no-undef */
+import StorybookUI from "./storybook"
 
-const store = createStore()
+import App from "./Apply"
 
-export default () =>
-  <Provider store={store}>
-    <Router>
-      <Scene key="root">
-        <Scene key="pageA" title="PageA" component={Roulette} />
-      </Scene>
-    </Router>
-  </Provider>
+// module.exports = __DEV__ ? StorybookUI : App
+module.exports = App

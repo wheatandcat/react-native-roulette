@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "name":"foo",
+      "color": "#F6CECE",
+    },
+    {
+      "name":"bar",
+      "color": "#F7F2E0",
+    },
+    {
+      "name":"foobar",
+      "color": "#CED8F6",
+    },
+    {
+      "name":"もう一回！",
+      "color": "#FFFF00",
+    }
+  ]
+}

@@ -27,3 +27,9 @@ rules:
     - extensions:
         - ".js"
         - ".jsx"
+  import/no-extraneous-dependencies:
+    - error
+    -
+      devDependencies:
+        - "**/*.test.js"
+        - "**/stories.js"

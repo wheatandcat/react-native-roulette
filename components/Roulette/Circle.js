@@ -2,6 +2,12 @@
 import React, { Component } from "react"
 import { StyleSheet, View } from "react-native"
 import { ROULETTE_STATUS_START } from "../../redux/modules/roulette"
+import { randomRange } from "../../libs/random"
+
+type Item = {
+  name: string,
+  color: string
+}
 
 type State = {
   count: number
@@ -9,7 +15,9 @@ type State = {
 type Props = {
   status: number,
   /* eslint-disable react/no-unused-prop-types */
-  stop: () => void
+  stop: () => void,
+  select: (name: string) => void,
+  items: Array<Item>
 }
 
 type DefaultProps = { status: number }
@@ -22,31 +30,59 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  yinyangMain: {
+  cone: {
+    width: 152,
+    height: 152,
+    borderRadius: 152 / 2,
+    backgroundColor: "#000"
+  },
+  circle: {
+    top: 1,
+    left: 1,
     width: 150,
     height: 150,
-    borderColor: "red",
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
+    borderTopWidth: 75,
+    borderTopColor: "#F6CECE",
+    borderLeftColor: "#CED8F6",
+    borderLeftWidth: 75,
+    borderRightColor: "#ff0",
+    borderRightWidth: 75,
+    borderBottomColor: "#F7F2E0",
     borderBottomWidth: 75,
-    borderRightWidth: 2,
-    borderRadius: 75
+    borderTopLeftRadius: 75,
+    borderTopRightRadius: 75,
+    borderBottomRightRadius: 75,
+    borderBottomLeftRadius: 75,
+    position: "absolute"
+  },
+  axis: {
+    width: 80,
+    height: 80,
+    top: -40,
+    left: -40,
+    borderRadius: 100 / 2,
+    backgroundColor: "#fff",
+    position: "absolute"
   }
 })
 
 let self: {
   props: Props
 }
-let up = 50
+let up = randomRange(50, 150)
 let count = 0
 
 const tick = () => {
+  if (self.props.status !== ROULETTE_STATUS_START) return
+
   if (up <= 0) {
     self.props.stop()
+    self.props.select(
+      self.props.items[Math.floor(self.state.count / 360 % 4)].name
+    )
+
     return
   }
-
-  if (self.props.status !== ROULETTE_STATUS_START) return
 
   if (count % 2 === 0) {
     up -= 1
@@ -68,7 +104,7 @@ export default class Circle extends Component<DefaultProps, Props, State> {
   }
   componentWillReceiveProps() {
     if (this.props.status === ROULETTE_STATUS_START) return
-    up = 50
+    up = randomRange(50, 150)
     count = 0
   }
   props: Props
@@ -77,7 +113,11 @@ export default class Circle extends Component<DefaultProps, Props, State> {
     return (
       <View style={styles.center}>
         <View style={{ transform: [{ rotate: `${this.state.count}deg` }] }}>
-          <View style={styles.yinyangMain} />
+          <View style={styles.cone}>
+            <View style={styles.circle}>
+              <View style={styles.axis} />
+            </View>
+          </View>
         </View>
       </View>
     )
