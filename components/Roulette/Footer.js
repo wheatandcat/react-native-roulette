@@ -6,7 +6,7 @@ export default () =>
     <FooterTab>
       <Button>
         <Icon name="apps" />
-        <Text>apps</Text>
+        <Text>app</Text>
       </Button>
       <Button>
         <Icon name="list" />

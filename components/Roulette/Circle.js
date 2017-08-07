@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
     height: 150,
     borderTopWidth: 75,
     borderTopColor: "#F6CECE",
-    borderLeftColor: "#CED8F6",
+    borderLeftColor: "#F7F2E0",
     borderLeftWidth: 75,
     borderRightColor: "#ff0",
     borderRightWidth: 75,
-    borderBottomColor: "#F7F2E0",
+    borderBottomColor: "#CED8F6",
     borderBottomWidth: 75,
     borderTopLeftRadius: 75,
     borderTopRightRadius: 75,
@@ -78,7 +78,8 @@ const tick = () => {
   if (up <= 0) {
     self.props.stop()
     self.props.select(
-      self.props.items[Math.floor(self.state.count / 360 % 4)].name
+      self.props.items[Math.floor((self.state.count + 45) % 360 / (360 / 4))]
+        .name
     )
 
     return

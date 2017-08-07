@@ -12,7 +12,7 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = (dispatch: Function) => ({
   start: () => dispatch(start()),
   stop: () => dispatch(stop()),
-  select: () => dispatch(select())
+  select: (name: string) => dispatch(select(name))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roulette)
