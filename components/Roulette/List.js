@@ -2,11 +2,7 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
 import { List, ListItem, Text, Left, Body } from "native-base"
-
-type Item = {
-  name: string,
-  color: string
-}
+import type { Item } from "../../redux/modules/shuffle"
 
 type Props = {
   items: Array<Item>

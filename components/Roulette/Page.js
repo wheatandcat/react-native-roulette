@@ -4,14 +4,17 @@ import { StyleSheet, View } from "react-native"
 import { Container, Content, Button, Text, Header } from "native-base"
 import { Col, Grid } from "react-native-easy-grid"
 import { Circle, List, Triangle, Footer } from "./"
+import type { Item } from "../../redux/modules/shuffle"
 import config from "../../config.json"
 
 type Props = {
   status: number,
   name: srting,
+  items: Array<Item>,
   start: () => void,
   stop: () => void,
-  select: (name: string) => void
+  select: (name: string) => void,
+  shuffle: (items: Array<Item>) => void
 }
 
 const styles = StyleSheet.create({
@@ -29,10 +32,30 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "#faa",
     fontWeight: "bold"
+  },
+  shuffle: {
+    top: 5,
+    left: 15
   }
 })
 
-export default ({ status, start, stop, select, name }: Props) =>
+const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))
+
+/* eslint-disable no-param-reassign */
+const shuffleItems = async (items: Array<Item>): Array<Item> => {
+  for (let i = items.length - 1; i > 0; i -= 1) {
+    const r = Math.floor(Math.random() * (i + 1))
+    const tmp = items[i]
+    items[i] = items[r]
+    items[r] = tmp
+  }
+
+  await sleep(1000)
+
+  return items
+}
+
+export default ({ status, start, stop, select, shuffle, name, items }: Props) =>
   <Container>
     <Header>
       {(() => {
@@ -47,9 +70,16 @@ export default ({ status, start, stop, select, name }: Props) =>
       })()}
     </Header>
     <Content>
+      <Button
+        style={styles.shuffle}
+        onPress={() =>
+          shuffleItems(items || config.users).then(res => shuffle(res))}
+      >
+        <Text>シャッフル!</Text>
+      </Button>
       <Grid>
         <Col size={1}>
-          <List items={config.users} />
+          <List items={items || config.users} />
         </Col>
         <Col size={2}>
           <View style={styles.triangle}>
@@ -59,7 +89,7 @@ export default ({ status, start, stop, select, name }: Props) =>
             status={status}
             stop={stop}
             select={select}
-            items={config.users}
+            items={items || config.users}
           />
         </Col>
       </Grid>

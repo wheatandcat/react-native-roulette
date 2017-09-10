@@ -27,6 +27,25 @@ storiesOf("Roulette", module)
       start={action("on start")}
       stop={action("on stop")}
       select={action("on select")}
+      items={[
+        {
+          name: "foo",
+          color: "#F6CECE"
+        },
+        {
+          name: "bar",
+          color: "#F7F2E0"
+        },
+        {
+          name: "baz",
+          color: "#CED8F6"
+        },
+        {
+          name: "qux",
+          color: "#FFFF00"
+        }
+      ]}
+      shuffle={action("on shuffle")}
     />
   )
   .add("Roulette start", () =>
@@ -35,5 +54,24 @@ storiesOf("Roulette", module)
       start={action("on start")}
       stop={action("on stop")}
       select={action("on select")}
+      items={[
+        {
+          name: "foo",
+          color: "#F6CECE"
+        },
+        {
+          name: "bar",
+          color: "#F7F2E0"
+        },
+        {
+          name: "baz",
+          color: "#CED8F6"
+        },
+        {
+          name: "qux",
+          color: "#FFFF00"
+        }
+      ]}
+      shuffle={action("on shuffle")}
     />
   )

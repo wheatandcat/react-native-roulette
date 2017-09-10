@@ -3,11 +3,7 @@ import React, { Component } from "react"
 import { StyleSheet, View } from "react-native"
 import { ROULETTE_STATUS_START } from "../../redux/modules/roulette"
 import { randomRange } from "../../libs/random"
-
-type Item = {
-  name: string,
-  color: string
-}
+import type { Item } from "../../redux/modules/shuffle"
 
 type State = {
   count: number
@@ -35,25 +31,6 @@ const styles = StyleSheet.create({
     height: 152,
     borderRadius: 152 / 2,
     backgroundColor: "#000"
-  },
-  circle: {
-    top: 1,
-    left: 1,
-    width: 150,
-    height: 150,
-    borderTopWidth: 75,
-    borderTopColor: "#F6CECE",
-    borderLeftColor: "#F7F2E0",
-    borderLeftWidth: 75,
-    borderRightColor: "#ff0",
-    borderRightWidth: 75,
-    borderBottomColor: "#CED8F6",
-    borderBottomWidth: 75,
-    borderTopLeftRadius: 75,
-    borderTopRightRadius: 75,
-    borderBottomRightRadius: 75,
-    borderBottomLeftRadius: 75,
-    position: "absolute"
   },
   axis: {
     width: 80,
@@ -86,7 +63,7 @@ const tick = () => {
   }
 
   if (count % 2 === 0) {
-    up -= 1
+    up -= randomRange(1, 2)
   }
 
   self.setState({
@@ -111,11 +88,32 @@ export default class Circle extends Component<DefaultProps, Props, State> {
   props: Props
 
   render() {
+    const { items } = this.props
     return (
       <View style={styles.center}>
         <View style={{ transform: [{ rotate: `${this.state.count}deg` }] }}>
           <View style={styles.cone}>
-            <View style={styles.circle}>
+            <View
+              style={{
+                top: 1,
+                left: 1,
+                width: 150,
+                height: 150,
+                borderTopColor: items[0].color,
+                borderLeftColor: items[1].color,
+                borderBottomColor: items[2].color,
+                borderRightColor: items[3].color,
+                borderTopWidth: 75,
+                borderLeftWidth: 75,
+                borderRightWidth: 75,
+                borderBottomWidth: 75,
+                borderTopLeftRadius: 75,
+                borderTopRightRadius: 75,
+                borderBottomRightRadius: 75,
+                borderBottomLeftRadius: 75,
+                position: "absolute"
+              }}
+            >
               <View style={styles.axis} />
             </View>
           </View>
